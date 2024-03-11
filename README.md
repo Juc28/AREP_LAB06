@@ -4,21 +4,21 @@ El cliente web de la aplicación tendrá un campo de texto y un botón. Cada vez
 
 ## HERRAMIENTAS 
 - [MAVEN](https://maven.apache.org) : Para el manejo de las dependecias.
-  
+  <p align="center">
   <IMG src=https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Apache_Maven_logo.svg/1280px-Apache_Maven_logo.svg.png height=200 width=300 >
-  
+    <p/>
 - [GIT](https://git-scm.com) : Para el manejo de las versiones.
-  
-  <IMG src=https://logowik.com/content/uploads/images/git6963.jpg height=150 width=250 >
-  
+  <p align="center">
+  <IMG src=https://logowik.com/content/uploads/images/git6963.jpg height=200 width=300 >
+    <p/>
 - [JAVA](https://www.java.com/es/) : Lenguaje de programación manejado.
-  
-  <IMG src=https://1000marcas.net/wp-content/uploads/2020/11/Java-logo.png height=150 width=250 > 
-  
+  <p align="center">
+  <IMG src=https://1000marcas.net/wp-content/uploads/2020/11/Java-logo.png height=200 width=300> 
+  <p/>
 - [DOCKER](https://www.docker.com/): Contenedor
-  
-   <IMG src=https://static-00.iconduck.com/assets.00/docker-icon-2048x1753-uguk29a7.png height=150 width=250 > 
-
+  <p align="center">
+   <IMG src=https://static-00.iconduck.com/assets.00/docker-icon-2048x1753-uguk29a7.png height=200 width=300> 
+  <p/>
 ## DOCKERHUB 
 Se encuntra en un repositorio de Docker Hub que es: [juc08/lab06arep]([https://hub.docker.com/repository/docker/juc08/laboratorio05/general](https://hub.docker.com/repository/docker/juc08/lab06arep/general))
 
