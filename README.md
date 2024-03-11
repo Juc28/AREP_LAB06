@@ -20,9 +20,22 @@ El cliente web de la aplicación tendrá un campo de texto y un botón. Cada vez
    <IMG src=https://static-00.iconduck.com/assets.00/docker-icon-2048x1753-uguk29a7.png height=200 width=300> 
   <p/>
 ## DOCKERHUB 
-Se encuntra en un repositorio de Docker Hub que es: [juc08/lab06arep]([https://hub.docker.com/repository/docker/juc08/laboratorio05/general](https://hub.docker.com/repository/docker/juc08/lab06arep/general))
+Se encuntra en un repositorio de Docker Hub que es: [juc08/lab06arep](https://hub.docker.com/repository/docker/juc08/lab06arep/general)
 
 # ARQUITECTURA 
+La arquitectura de este sistema de registro se basa en un enfoque **round-robin** para distribuir las solicitudes de registro entre varios servidores. Los servidores de registro se encargan de almacenar las cadenas de registro en una base de datos **MongoDB**.
+
+La clase LogService es el servidor de registro que recibe las solicitudes GET y registra el mensaje en la base de datos MongoDB. La clase **LogService** utiliza el controlador de MongoDB para interactuar con la base de datos.
+
+El flujo de registro es el siguiente:
+
+1. El cliente envía una solicitud GET al servidor de registro actual con el mensaje que desea registrar.
+2. El servidor de registro recibe la solicitud GET y registra el mensaje en la base de datos MongoDB.
+3. El servidor de registro recupera las 10 últimas cadenas de registro con sus fechas de la base de datos MongoDB.
+4. El servidor de registro crea un objeto JSON con las últimas 10 cadenas de registro y sus fechas.
+5. El servidor de registro devuelve el objeto JSON al cliente.
+
+El enfoque **round-robin** garantiza un equilibrio en la carga de trabajo entre los servidores de registro. Además, al utilizar MongoDB para almacenar las cadenas de registro, se garantiza la persistencia de los datos incluso si un servidor de registro falla.
 
 # DISEÑO DE CLASES 
  2 componentes principales: 
@@ -119,6 +132,6 @@ Se encuntra en un repositorio de Docker Hub que es: [juc08/lab06arep]([https://h
 ![imagen](https://github.com/Juc28/AREP_LAB06/assets/118181224/d8972e3f-4ee8-4b94-87ef-ff7a130cfe08)
 
 # Prueba del Despliegue: 
-[VIDEO DESPLIEGUE AWS]()
+[VIDEO DESPLIEGUE AWS](https://youtu.be/WzMq4r04fDQ)
 # Autor 
 Erika Juliana Castro Romero [Juc28](https://github.com/Juc28)
