@@ -1,0 +1,36 @@
+version: '3'
+services:
+  robin:
+    image: roundrobin
+    ports:
+      - "4567:4567"
+    container_name: robin
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    command: 'mongod'
+
+  service-1:
+    image: robbings
+    ports:
+      - "4568:4568"
+    container_name: service-1
+
+  service-2:
+    image: robbings
+    ports:
+      - "4569:4568"
+    container_name: service-2
+
+  service-3:
+    image: robbings
+    ports:
+      - "4570:4568"
+    container_name: service-3
+
+volumes:
+    mongodb:
+    mongodb_config:

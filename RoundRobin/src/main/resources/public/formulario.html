@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form-Bono</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to right, #774385, #42275a);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .form-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-image: linear-gradient(to right, #f9f9f9, #dddddd, #f9f9f9);
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .form-group button {
+            background-color: blue;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            border-radius: 5px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .form-group button:hover {
+            background-color: #006400;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <form action="/log">
+        <div class="form-group">
+            <h1>Deja tu comentario aquí</h1>
+            <label>Name:</label>
+            <input type="text" id="message" name="message" value="Mensaje">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="loadGetMsg()">Submit</button>
+        </div>
+    </form>
+    <div id="getrespmsg"></div>
+</div>
+<script>
+    function loadGetMsg() {
+        let nameVar = document.getElementById("message").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            document.getElementById("getrespmsg").innerHTML =
+            this.responseText;
+        }
+        xhttp.open("GET", "/log?value="+nameVar);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>
