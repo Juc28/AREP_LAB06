@@ -5,19 +5,19 @@ El cliente web de la aplicación tendrá un campo de texto y un botón. Cada vez
 ## HERRAMIENTAS 
 - [MAVEN](https://maven.apache.org) : Para el manejo de las dependecias.
   <p align="center">
-  <IMG src=https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Apache_Maven_logo.svg/1280px-Apache_Maven_logo.svg.png height=200 width=300 >
+  <IMG src=https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Apache_Maven_logo.svg/1280px-Apache_Maven_logo.svg.png height=150 width=250 >
     <p/>
 - [GIT](https://git-scm.com) : Para el manejo de las versiones.
   <p align="center">
-  <IMG src=https://logowik.com/content/uploads/images/git6963.jpg height=200 width=300 >
+  <IMG src=https://logowik.com/content/uploads/images/git6963.jpg height=150 width=250 >
     <p/>
 - [JAVA](https://www.java.com/es/) : Lenguaje de programación manejado.
   <p align="center">
-  <IMG src=https://1000marcas.net/wp-content/uploads/2020/11/Java-logo.png height=200 width=300> 
+  <IMG src=https://1000marcas.net/wp-content/uploads/2020/11/Java-logo.png height=150 width=250> 
   <p/>
 - [DOCKER](https://www.docker.com/): Contenedor
   <p align="center">
-   <IMG src=https://static-00.iconduck.com/assets.00/docker-icon-2048x1753-uguk29a7.png height=200 width=300> 
+   <IMG src=https://static-00.iconduck.com/assets.00/docker-icon-2048x1753-uguk29a7.png height=150 width=250> 
   <p/>
 ## DOCKERHUB 
 Se encuntra en un repositorio de Docker Hub que es: [juc08/lab06arep](https://hub.docker.com/repository/docker/juc08/lab06arep/general)
@@ -40,24 +40,26 @@ El enfoque **round-robin** garantiza un equilibrio en la carga de trabajo entre 
 # DISEÑO DE CLASES 
  2 componentes principales: 
   1. Round Robin --> Tiene dos clases que son:
-     - LogService: Implementado utilizando el framework Spark en Java. El servicio utiliza MongoDB como base de datos para almacenar y recuperar los mensajes registrados.
+     - LogServiceFacade: Implementado utilizando el framework Spark en Java. El servicio utiliza MongoDB como base de datos para almacenar y recuperar los mensajes registrados.
 
         Descripción de los métodos principales en la clase:
        
-       * main: Este es el método principal de la clase. Aquí se configura el servidor Spark y se define la ruta de acceso para el servicio de registro de mensajes. La ruta es "/          logservice" y acepta una consulta de parámetro "message". Cuando se accede a esta ruta con una consulta de parámetro "message", se llama al método logMessage con el               valor de la consulta de parámetro "message".
+       * main: Este es el método principal de la clase. Aquí se configura el servidor Spark y se define la ruta de acceso para el servicio de registro de mensajes. La ruta es "/          logservice" y acepta una consulta de parámetro "message". Cuando se accede a esta ruta con una consulta de parámetro "message", se llama al método logMessage con el              valor de la consulta de parámetro "message".
        * logMessage: Este método se encarga de registrar el mensaje en MongoDB y de recuperar las 10 últimas entradas de registro. Primero, se conecta al servidor MongoDB                 utilizando el cliente MongoClient. Luego, se obtiene la base de datos "mydb" y la colección "log". Se inserta el mensaje en la colección con una marca de tiempo en un            documento Document. Luego, se recuperan las 10 últimas entradas de registro de la colección y se convierten en una lista de mapas. Finalmente, se crea un objeto JSON             con las últimas 10 entradas de registro y sus marcas de tiempo utilizando la biblioteca Gson.
-       * getPort: Este método devuelve el número de puerto en el que se ejecuta el servidor. Si la variable de entorno "PORT" está configurada, se devuelve su valor. De lo                 contrario, se devuelve el número de puerto predeterminado 4568.
-
-  2. RobbingS --> Tiene una clase que es:
+       * getPort: Este método devuelve el número de puerto en el que se ejecuta el servidor. Si la variable de entorno "PORT" está configurada, se devuelve su valor. De lo                contrario, se devuelve el número de puerto predeterminado 4568.
+         
      - RemoteLogService: Es un servicio de registro remoto que utiliza una técnica de equilibrio de carga round-robin para distribuir las solicitudes de registro entre varios            servidores.
-
-       Descripción de los métodos principales en la clase:
-       
-        - getLogs(String message) realiza una solicitud GET a un servidor de registro. La URL de la solicitud se construye utilizando el servidor actual y el mensaje                       de registro. La solicitud se realiza utilizando la clase HttpURLConnection. Si la solicitud se realiza correctamente (es decir, el código de respuesta es HTTP_OK), se            devuelve la respuesta del servidor como una lista de cadenas.
-        - rotateRoundRobinServer() se encarga de rotar el servidor actual al siguiente en el array de servidores. Después de obtener el servidor actual, se incrementa el                   contador currentServer y se realiza la división módulo para asegurar que el índice del servidor actual esté dentro de los límites del array de servidores.
-        - getLogs(String message) con el mensaje de registro que se desea enviar. El método se encargará de enviar la solicitud al servidor actual y devolver la respuesta del              servidor.
+  
+         Descripción de los métodos principales en la clase:
+         
+          * getLogs(String message) realiza una solicitud GET a un servidor de registro. La URL de la solicitud se construye utilizando el servidor actual y el mensaje                       de registro. La solicitud se realiza utilizando la clase HttpURLConnection. Si la solicitud se realiza correctamente (es decir, el código de respuesta es HTTP_OK),               se  devuelve la respuesta del servidor como una lista de cadenas.
+          * rotateRoundRobinServer() se encarga de rotar el servidor actual al siguiente en el array de servidores. Después de obtener el servidor actual, se incrementa el                   contador currentServer y se realiza la división módulo para asegurar que el índice del servidor actual esté dentro de los límites del array de servidores.
+          * getLogs(String message) con el mensaje de registro que se desea enviar. El método se encargará de enviar la solicitud al servidor actual y devolver la respuesta del              servidor.
+     
+  2. RobbingS --> Tiene una clase que es:
+    
           
-     - LogServerFacade: Es una aplicación web que expone una ruta ("/log") que acepta solicitudes GET y envía los parámetros de consulta a la clase RemoteLogService para que se         registren.
+     - LogServer: Es una aplicación web que expone una ruta ("/log") que acepta solicitudes GET y envía los parámetros de consulta a la clase RemoteLogService para que se               registren.
        
        Descripción de los métodos principales en la clase:
        
@@ -127,6 +129,10 @@ El enfoque **round-robin** garantiza un equilibrio en la carga de trabajo entre 
 ![imagen](https://github.com/Juc28/AREP_LAB06/assets/118181224/d7fed0d2-e400-458c-a150-853ae60a3a5b)
 
 ## AWS
+* Abrir en el navegador:
+ ```
+ http://ec2-3-91-246-67.compute-1.amazonaws.com:4567/formulario.html
+ ```
 ![imagen](https://github.com/Juc28/AREP_LAB06/assets/118181224/82eba833-690b-4363-9c18-ab8f9425ee10)
 ![imagen](https://github.com/Juc28/AREP_LAB06/assets/118181224/af41f933-d18e-468f-92e9-028a7151ae76)
 ![imagen](https://github.com/Juc28/AREP_LAB06/assets/118181224/d8972e3f-4ee8-4b94-87ef-ff7a130cfe08)
